@@ -1,15 +1,19 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
-Vue.use(Router)
+/**
+ * 路由异步加载
+ * @param resolve
+ * @constructor
+ */
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: HelloWorld
-    }
-  ]
-})
+const Login = resolve => require(['../pages/login/login.vue'], resolve)
+//const Food = resolve => require(['../pages/food/food.vue'], resolve)
+//const ShopCart = resolve => require(['../pages/shopcart/shopcart.vue'], resolve)
+
+
+let routes = [
+  { path: '/login', component: Login , name:'登陆',hidden:true},
+  { path: '*', redirect: '/login' },
+]
+
+
+export default routes;

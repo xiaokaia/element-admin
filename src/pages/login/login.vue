@@ -1,0 +1,106 @@
+<template>
+  <div class="login-wrapper">
+    <el-form class="card-box login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
+      <h3 class="title">系统登录</h3>
+      <el-form-item prop="username">
+        <i class="fa fa-user user-icon"></i>
+        <el-input  type="text" v-model="loginForm.username" autoComplete="on" placeholder="账号/手机号" />
+      </el-form-item>
+
+      <el-form-item prop="password">
+        <i class="fa fa-lock user-icon"></i>
+        <el-input  :type="pwdType" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
+          placeholder="密码" />
+        <span class='show-pwd' @click='showPwd'></span>
+      </el-form-item>
+      <el-button type="primary" style="width:100%;margin-top:20px;" :loading="loading" @click.native.prevent="handleLogin">登录</el-button>
+    </el-form>
+    </el-form>
+  </div>
+</template>
+<script type="text/ecmascript-6">
+ import { isvalidPhone } from 'utils/validate'
+ export default{
+    data(){
+      const validateUsername = (rule, value, callback) => {
+        if(!isvalidPhone(value)){
+          callback(new Error('请输入正确的手机号'))
+        }else {
+          callback()
+        }
+      };
+      const validatePassword = (rule, value, callback) => {
+        if(value.length < 6){
+          callback(new Error('密码不能小于6位'))
+        }else{
+          callback()
+        }
+      };
+      return {
+        loginForm:{
+          username:'',
+          password:'',
+        },
+        loginRules: {
+          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        },
+        pwdType: 'password',
+        loading: false,
+        showDialog: false
+      }
+    },
+    computed: {
+
+    },
+    mounted() {
+      
+    },
+    methods: {
+      showPwd() {
+        if (this.pwdType === 'password') {
+          this.pwdType = ''
+        } else {
+          this.pwdType = 'password'
+        }
+      },
+      handleLogin(){
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+
+          }else{
+            return false;
+          }
+        })
+      }
+    },
+    components:{
+     
+    }
+ }
+ </script>
+ <style rel="stylesheet/scss" lang="scss" scoped>
+   @import "src/styles/mixin.scss";
+   .login-wrapper {
+     @include relative;
+     height: 100vh;
+     background-color: #2d3a4b;
+     .login-form{
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 400px;
+        padding: 35px 35px 15px 35px;
+        margin: 120px auto;
+        .user-icon{
+          position: absolute;
+          font-size: 18px;
+          color:#5a5e66;
+          z-index: 99;
+          left: 10px;
+          top:10px;
+        }
+     }
+   }
+ </style>
+
