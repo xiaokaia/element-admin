@@ -11,16 +11,20 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.min.css'
 import './mock'  // 该项目所有请求使用mockjs模拟
 import store from './store'
-import * as filtres from './filtres' // 全局filter
+import * as filters from './filters' // 全局filter
 import $ from 'jquery'
 import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { Message } from 'element-ui'
+import Distpicker from 'v-distpicker'
+import axiosPlugin from 'common/js/https'
 
 Vue.config.productionTip = false
 
+Vue.use(axiosPlugin);
 Vue.use(ElementUI)
 Vue.use(VueRouter);
+Vue.component('v-distpicker', Distpicker)
 
 
 Vue.prototype.foodMap = new Map();//全局购物车商品

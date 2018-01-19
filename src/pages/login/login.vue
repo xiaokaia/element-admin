@@ -58,16 +58,21 @@
     },
     methods: {
       showPwd() {
-        if (this.pwdType === 'password') {
+        if(this.pwdType === 'password'){
           this.pwdType = ''
-        } else {
+        }else {
           this.pwdType = 'password'
         }
       },
       handleLogin(){
+        let _this = this;
         this.$refs.loginForm.validate(valid => {
-          if (valid) {
-
+          if(valid) {
+            _this.loading = true;
+            setTimeout(()=>{
+              _this.loading = false;
+              _this.$router.push({ path: '/home' });
+            },1000)
           }else{
             return false;
           }

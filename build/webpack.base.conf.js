@@ -13,6 +13,9 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  externals: {
+    "BMap": "BMap"
+  },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -31,8 +34,10 @@ module.exports = {
       'common': path.resolve(__dirname, '../src/common'),
       'store': path.resolve(__dirname, '../src/store'),
       'router': path.resolve(__dirname, '../src/router'),
+      'style': path.resolve(__dirname, '../src/style'),
       'directive': path.resolve(__dirname, '../src/directive'),
-      'filtres': path.resolve(__dirname, '../src/filtres')
+      'filters': path.resolve(__dirname, '../src/filters'),
+      'utils': path.resolve(__dirname, '../src/utils'),
     }
   },
   module: {
