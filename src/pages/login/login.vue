@@ -20,30 +20,17 @@
 </template>
 <script type="text/ecmascript-6">
  import { isvalidPhone } from 'utils/validate'
+ import { asyncRouterMap } from '../../router' 
  export default{
     data(){
-      const validateUsername = (rule, value, callback) => {
-        if(!isvalidPhone(value)){
-          callback(new Error('请输入正确的手机号'))
-        }else {
-          callback()
-        }
-      };
-      const validatePassword = (rule, value, callback) => {
-        if(value.length < 6){
-          callback(new Error('密码不能小于6位'))
-        }else{
-          callback()
-        }
-      };
       return {
         loginForm:{
-          username:'',
-          password:'',
+          username:'admin',
+          password:'admin',
         },
         loginRules: {
-          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          username: [{ required: true, trigger: 'blur' }],
+          password: [{ required: true, trigger: 'blur' }]
         },
         pwdType: 'password',
         loading: false,
@@ -68,11 +55,23 @@
         let _this = this;
         this.$refs.loginForm.validate(valid => {
           if(valid) {
-            _this.loading = true;
+            /*_this.loading = true;
             setTimeout(()=>{
               _this.loading = false;
-              _this.$router.push({ path: '/home' });
-            },1000)
+              this.$store.commit('SET_TOKEN', 'kai');
+              sessionStorage.setItem('menus',JSON.stringify(asyncRouterMap));
+              this.$router.options.routes = asyncRouterMap;
+              this.$router.addRoutes(asyncRouterMap);
+              _this.$router.push({ path: '/' });
+            },1000)*/
+            this.$store.dispatch('Login', this.loginForm).then(() => {
+              this.loading = false
+              // alert('登录成功')
+              localStorage.setItem('ms_username', this.loginForm.username)
+              this.$router.push('/about')
+            }).catch(() => {
+              this.loading = false
+            })
           }else{
             return false;
           }
@@ -97,6 +96,14 @@
         width: 400px;
         padding: 35px 35px 15px 35px;
         margin: 120px auto;
+        .title{
+          font-size: 26px;
+          font-weight: 400;
+          color: #eee;
+          margin: 0px auto 40px auto;
+          text-align: center;
+          font-weight: bold;
+        }
         .user-icon{
           position: absolute;
           font-size: 18px;

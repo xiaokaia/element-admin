@@ -17,7 +17,6 @@
           <input type="file" id="change" aaccept="image/png,image/jpeg" @change="change">
           <label for="change"></label>
         </div>
-
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <aside>
     <el-menu :default-active="path"  background-color="#545c64" text-color="#fff" active-text-color="#ffd04b"  class="el-menu-vertical-demo"  @open="handleopen" @close="handleclose" @select="handleselect" theme="dark" unique-opened router>
-      <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
+      <template v-for="(item,index) in routes" v-if="!item.hidden">
         <el-submenu  :index="index+''" :data="index+''"  v-if="!item.leaf"><!--多级-->
           <template slot="title" ><i :class="item.iconCls"></i>{{item.name}}</template>
           <el-menu-item v-for="(child,childindex) in item.children" :data="child.path"  :index="child.path" v-if="!child.hidden&&!child.children">{{child.name}}</el-menu-item>
@@ -18,17 +18,32 @@
 </template>
 <script type="text/ecmascript-6">
  export default{
+    props: {
+      routes: {
+        type: Array
+      },
+      isNest: {
+        type: Boolean,
+        default: false
+      }
+    },
     data(){
       return {
+        menu:[],
        path: this.$route.path,
       }
     },
     computed: {
       
+      onRoutes() {
+        return this.$route.path.replace('/permission', '')
+      }
     },
     mounted() {
+      this.menu = JSON.parse(sessionStorage.getItem('menus'));
     },
     methods: {
+      
       handleopen() {
 				//console.log('handleopen');
 			},

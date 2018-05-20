@@ -39,7 +39,7 @@
  <style rel="stylesheet/scss" lang="scss" scoped>
    .navbar{
      width:100%;
-     z-index: 2000;
+     z-index: 1000;
      position: fixed;
      height: 50px;
      line-height: 50px;

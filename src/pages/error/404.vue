@@ -1,6 +1,6 @@
 <template>
   <div>
-     关于项目
+     页面未找到
   </div>
 </template>
 <script type="text/ecmascript-6">

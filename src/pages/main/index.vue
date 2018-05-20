@@ -5,7 +5,7 @@
     </div>
     <div class="main">
       <div class="menu">
-        <Slidebar></Slidebar>
+        <Slidebar :routes="routes"></Slidebar>
       </div>
       <div class="content-container">
         <el-col class="breadcrumb-container">
@@ -24,6 +24,7 @@
  import Navbar from './Navbar';
  import Breadcrumb  from './Breadcrumb';
  import Slidebar  from './Slidebar';
+ import store from '@/store'
  export default{
     data(){
       return {
@@ -31,7 +32,9 @@
       }
     },
     computed: {
-
+      routes() {
+        return store.getters.routers
+      }
     },
     mounted() {
     },
